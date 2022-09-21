@@ -24,17 +24,19 @@ de mantenimiento recibe un aumento del 35%.
 #include <stdio.h>
 #include <stdlib.h>
 #include "utn.h"
-int main(void) {
+int main(void)
+{
 
 	setbuf(stdout, NULL);
 
-	int costosHospedaje;
-	int costosComida;
-	int costosTranporte;
+	float costosHospedaje;
+	float costosComida;
+	float costosTranporte;
 	int opcion;
-	int i;
-	int respuesta;
-	int estado;
+	//int i;
+	int subMenu = 0;
+	//int estadoSubmenu = 0;
+	//int estado;
 	int confederacionIngresada;
 	int contadorAFC;
 	int contadorCAF;
@@ -48,6 +50,7 @@ int main(void) {
 	int cantidadDeDefensores;
 	int cantidadDeMediocampistas;
 	int cantidadDeDelanteros;
+	int contadorDeJugadores;
 
 	contadorAFC = 0;
 	contadorCAF = 0;
@@ -59,147 +62,200 @@ int main(void) {
 	cantidadDeDefensores = 0;
 	cantidadDeDelanteros = 0;
 	cantidadDeMediocampistas = 0;
+	costosComida = 0;
+	costosHospedaje = 0;
+	costosTranporte = 0;
+	contadorDeJugadores = 0;
 
-	estado = 0;
+	//estado = 0;
 
-	for(i = 0; i < 22; i++)
-	{
+	//for(i = 0; i < 22; i++)
+	//{
 		do{
-			printf("Bienvenido al menu\n"
-					"1: Ingrese costos de mantinimiento.\n"
-					"2: Carga de jugadores.\n"
-					"3: Realizar todos los calculos.\n"
-					"4: Informar todos los resultados.\n"
-					"5: Salir.\n");
+			printf("\tBienvenido al menu\n\n");
+			printf("1: Ingrese costos de mantinimiento.\n");
+			printf("El costo de hospedaje es: %.2f\n",costosHospedaje);
+			printf("El costo de comida es: %.2f\n",costosComida);
+			printf("El costo de transporte es: %.2f\n\n",costosTranporte);
+			printf("2: Carga de jugadores.\n");
+			printf("La cantidad de arqueros es: %d\n",cantidadDeArqueros);
+			printf("La cantidad de defensores es: %d\n",cantidadDeDefensores);
+			printf("La cantidad de mediocampistas es: %d\n",cantidadDeMediocampistas);
+			printf("La cantidad de delanteros es: %d\n\n",cantidadDeDelanteros);
+			printf("3: Realizar todos los calculos.\n\n");
+			printf("4: Informar todos los resultados.\n\n");
+			printf("5: Salir.\n\n");
 
-			//printf("Ingrese su respusta: ");
-			utn_getNumero(&opcion, "Ingrese aqui la opcion de menu: ", "Error\n", 1, 5, 3);
-			//scanf("%d", &respuesta);
+				//printf("Ingrese su respusta: ");
+			utn_getNumero(&opcion, "Ingrese aqui la opcion de menu: \n", "Error\n", 1, 5, 3);
+				//scanf("%d", &respuesta);
+
 			switch(opcion)
 			{
 				case 1:
-					for(i = 0; i < 22; i++)
+					do
 					{
-						//estado = 0;
-						if(i > 0)
+						printf("Elija el costo que desea ingresar:\n"
+								"1: Para costos de hospedaje.\n"
+								"2: Para costos de comida.\n"
+								"3: Para costos de transporte.\n"
+								"4: Para salir.\n");
+						printf("Ingrese aqui la opcion de menu: \n");
+						scanf("%d", &subMenu);
+						switch(subMenu)
 						{
-							printf("Ingrese los costos de hospedaje: ");
-							scanf("%d", &costosHospedaje);
-
-							printf("Ingrese los costos de comida: ");
-							scanf("%d", &costosComida);
-
-							printf("Ingrese los costos de transporte: ");
-							scanf("%d", &costosTranporte);
-
-							estado = 1;
+							case 1:
+								printf("Ingrese los costos de hospedaje: ");
+								scanf("%f", &costosHospedaje);
+								break;
+							case 2:
+								printf("Ingrese los costos de comida: ");
+								scanf("%f", &costosComida);
+								break;
+							case 3:
+								printf("Ingrese los costos de transporte: ");
+								scanf("%f", &costosTranporte);
+								break;
+							case 4:
+								//estadoSubmenu = 1;
+								break;
 						}
+					}while(subMenu != 4);
 
-						if(estado == 1)
-						{
-							break;
-						}
-					}
-
-					break;
+				break;
 
 				case 2:
-					for(i = 0; i < 22; i++)
-					{
-						if(i > 0)
+					do{
+
+						contadorDeJugadores++;
+						printf("Ingrese los datos de los jugadores\n"
+								"1: Numero de camiseta.\n"
+								"2: Posicion de jugador.\n"
+								"3: Conferacion a la que pertenece.\n"
+								"4: Salir.\n");
+						printf("Ingrese aqui la opcion de menu:\n");
+						scanf("%d", &subMenu);
+
+						switch (subMenu)
 						{
-							printf("Ingrese a que conferacion pertenece:\n"
-									"1. AFC.\n"
-									"2. CAF.\n"
-									"3. CONCACAF.\n"
-									"4. CONMEBOL.\n"
-									"5. UEFA.\n"
-									"6. OFC.\n");
-
-							printf("Ingrese su opcion: ");
-							scanf("%d", &confederacionIngresada);
-
-							switch(confederacionIngresada)
-							{
-								case 1:
-									contadorAFC++;
-									break;
-								case 2:
-									contadorCAF++;
-									break;
-								case 3:
-									contadorCONCACAF++;
-									break;
-								case 4:
-									contadorCONMEBOL++;
-									break;
-								case 5:
-									contadorUEFA++;
-								case 6:
-									contadorOFC++;
-								default:
-									break;
-							}
-
-							printf("Ingrese su numero de camiseta: ");
-							scanf("%d", &numeroDeCamiseta);
-							while(numeroDeCamiseta < 1 || numeroDeCamiseta > 99)
-							{
-								printf("Error, reingrese su numero de camiseta: ");
+							case 1:
+								printf("Ingrese su numero de camiseta: ");
 								scanf("%d", &numeroDeCamiseta);
-							}
-
-							printf("Ingrese su posicion:\n"
+								while(numeroDeCamiseta < 1 || numeroDeCamiseta > 99)
+								{
+									printf("Error, reingrese su numero de camiseta: ");
+									scanf("%d", &numeroDeCamiseta);
+								}
+								break;
+							case 2:
+								printf("Ingrese su posicion:\n"
 									"1. Arquero.\n"
 									"2. Defensores.\n"
 									"3. Mediocampista.\n"
-									"4. Delantero\n");
+									"4. Delantero\n"
+									"5. Salir\n");
 
-							printf("Ingrese su opcion: ");
-							scanf("%d", &posicionIngresada);
-							switch(posicionIngresada)
-							{
-								case 1:
-									while(cantidadDeArqueros > 2)
-									{
-										cantidadDeArqueros++;
-									}
-									break;
-								case 2:
-									while(cantidadDeDefensores > 8)
-									{
-										cantidadDeDefensores++;
-									}
+								printf("Ingrese su opcion: \n");
+								scanf("%d", &posicionIngresada);
+								switch(posicionIngresada)
+								{
+									case 1:
+										if(cantidadDeArqueros > 2)
+										{
+											cantidadDeArqueros++;
+										}
+										else
+										{
+											printf("Numero de posiciones superada");
+										}
+										break;
+									case 2:
+										if(cantidadDeDefensores > 8)
+										{
+											cantidadDeDefensores++;
+										}
+										else
+										{
+											printf("Numero de posiciones superada");
+										}
+										break;
+									case 3:
+										if(cantidadDeMediocampistas > 8)
+										{
+											cantidadDeMediocampistas++;
+										}
+										else
+										{
+											printf("Numero de posiciones superada");
+										}
+										break;
+									case 4:
+										if(cantidadDeDelanteros > 4)
+										{
+											cantidadDeDelanteros++;
+										}
+										else
+										{
+											printf("Numero de posiciones superada");
+										}
+										break;
+									case 5:
+										break;
+								}
 									break;
 								case 3:
-									while(cantidadDeMediocampistas > 8)
-									{
-										cantidadDeMediocampistas++;
-									}
-									break;
-								case 4:
-									while(cantidadDeDelanteros > 4)
-									{
-										cantidadDeDelanteros++;
-									}
-									break;
-							}
+									printf("Ingrese a que conferacion pertenece:\n"
+											"1. AFC.\n"
+											"2. CAF.\n"
+											"3. CONCACAF.\n"
+											"4. CONMEBOL.\n"
+											"5. UEFA.\n"
+											"6. OFC.\n"
+											"7. Salir");
+									printf("Ingrese su opcion: \n");
+									scanf("%d", &confederacionIngresada);
 
-							printf("La cantidad de arqueros es: %d\n", cantidadDeArqueros);
-							printf("La cantidad de defensores es: %d\n", cantidadDeDefensores);
-							printf("La cantidad de mediocampistas es: %d\n", cantidadDeMediocampistas);
-							printf("La cantidad de delanteros es: %d\n", cantidadDeDelanteros);
-
+									switch(confederacionIngresada)
+									{
+										case 1:
+											contadorAFC++;
+											break;
+										case 2:
+											contadorCAF++;
+											break;
+										case 3:
+											contadorCONCACAF++;
+											break;
+										case 4:
+											contadorCONMEBOL++;
+											break;
+										case 5:
+											contadorUEFA++;
+											break;
+										case 6:
+											contadorOFC++;
+											break;
+										default:
+											break;
+									}
+										break;
+									case 4:
+										break;
 						}
-					}
-					break;
-				case 3:
-					break;
-				case 4:
-					break;
+
+
+						}while(subMenu != 4);
+						break;
+					case 3:
+
+						break;
+					case 4:
+						break;
+
 
 			}
-
+					//estado = 1;
+			//}
 		}while(opcion != 5);
-	}
+
 }
