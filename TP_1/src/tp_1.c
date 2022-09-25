@@ -24,20 +24,23 @@ de mantenimiento recibe un aumento del 35%.
 #include <stdio.h>
 #include <stdlib.h>
 #include "utn.h"
+#include "ingreso_de_datos.h"
+#include "realizacion_de_calculos.h"
+//#define	OCUPADO  1
+//#define LIBRE  0
+
 int main(void)
 {
 
 	setbuf(stdout, NULL);
-
-	float costosHospedaje;
-	float costosComida;
-	float costosTranporte;
+	// la opcion que el usuario implementa en el menu
 	int opcion;
-	//int i;
-	int subMenu = 0;
-	//int estadoSubmenu = 0;
-	//int estado;
-	int confederacionIngresada;
+	// variables para la opcion 1 del menu
+	float costoHospedaje;
+	float costoComida;
+	float costoTranporte;
+	// variables para la opcion 2 del menu
+	int posicionIngresada;
 	int contadorAFC;
 	int contadorCAF;
 	int contadorCONCACAF;
@@ -45,12 +48,24 @@ int main(void)
 	int contadorUEFA;
 	int contadorOFC;
 	int numeroDeCamiseta;
-	int posicionIngresada;
-	int cantidadDeArqueros;
-	int cantidadDeDefensores;
-	int cantidadDeMediocampistas;
-	int cantidadDeDelanteros;
-	int contadorDeJugadores;
+	int cantidadDeArquero;
+	int cantidadDeDefensor;
+	int cantidadDeMediocampista;
+	int cantidadDeDelantero;
+	int contadorDeJugador;
+	char respuesta;
+	//vairialbles de la opcion 3 y 4
+	float promedioAFC;
+	float promedioCAF;
+	float promedioCONCACAF;
+	float promedioCONMEBOL;
+	float promedioUEFA;
+	float promedioOFC;
+	float costoTotalDeMantenimiento;
+	int estadoMenuCalculos;
+	float porcentajeUEFA;
+	float aumentoParaUEFA;
+	float costoDeMantenimientoConAumento;
 
 	contadorAFC = 0;
 	contadorCAF = 0;
@@ -58,204 +73,177 @@ int main(void)
 	contadorCONMEBOL = 0;
 	contadorUEFA = 0;
 	contadorOFC = 0;
-	cantidadDeArqueros = 0;
-	cantidadDeDefensores = 0;
-	cantidadDeDelanteros = 0;
-	cantidadDeMediocampistas = 0;
-	costosComida = 0;
-	costosHospedaje = 0;
-	costosTranporte = 0;
-	contadorDeJugadores = 0;
+	cantidadDeArquero = 0;
+	cantidadDeDefensor = 0;
+	cantidadDeDelantero = 0;
+	cantidadDeMediocampista = 0;
+	costoComida = 0;
+	costoHospedaje = 0;
+	costoTranporte = 0;
+	contadorDeJugador = 0;
+	estadoMenuCalculos = 0;
+	aumentoParaUEFA = 0;
+	costoDeMantenimientoConAumento = 0;
 
-	//estado = 0;
+	do{
+		//inicio del programa
+		printf("\n\tBienvenido al menu\n\n");
+		printf("1: Ingrese costos de mantinimiento.\n");
+		printf("El costo de hospedaje es: %.2f\n",costoHospedaje);
+		printf("El costo de comida es: %.2f\n",costoComida);
+		printf("El costo de transporte es: %.2f\n\n",costoTranporte);
+		printf("2: Carga de jugadores.\n");
+		printf("La cantidad de arqueros es: %d\n",cantidadDeArquero);
+		printf("La cantidad de defensores es: %d\n",cantidadDeDefensor);
+		printf("La cantidad de mediocampistas es: %d\n",cantidadDeMediocampista);
+		printf("La cantidad de delanteros es: %d\n\n",cantidadDeDelantero);
+		printf("3: Realizar todos los calculos.\n\n");
+		printf("4: Informar todos los resultados.\n\n");
+		printf("5: Salir.\n\n");
 
-	//for(i = 0; i < 22; i++)
-	//{
-		do{
-			printf("\tBienvenido al menu\n\n");
-			printf("1: Ingrese costos de mantinimiento.\n");
-			printf("El costo de hospedaje es: %.2f\n",costosHospedaje);
-			printf("El costo de comida es: %.2f\n",costosComida);
-			printf("El costo de transporte es: %.2f\n\n",costosTranporte);
-			printf("2: Carga de jugadores.\n");
-			printf("La cantidad de arqueros es: %d\n",cantidadDeArqueros);
-			printf("La cantidad de defensores es: %d\n",cantidadDeDefensores);
-			printf("La cantidad de mediocampistas es: %d\n",cantidadDeMediocampistas);
-			printf("La cantidad de delanteros es: %d\n\n",cantidadDeDelanteros);
-			printf("3: Realizar todos los calculos.\n\n");
-			printf("4: Informar todos los resultados.\n\n");
-			printf("5: Salir.\n\n");
+		utn_getNumeroInt(&opcion, "Ingrese aqui la opcion de menu: ", "Error opcion no valida\n", 1, 5, 3);
 
-				//printf("Ingrese su respusta: ");
-			utn_getNumero(&opcion, "Ingrese aqui la opcion de menu: \n", "Error\n", 1, 5, 3);
-				//scanf("%d", &respuesta);
+		//ingreso de la opcion del usuario navegando por el menu
+		switch(opcion)
+		{
+			case 1:
+				//en este caso y funcion se ingresan los costos de mantenimiento
+				IngresoDeCostos(&costoHospedaje,&costoComida,&costoTranporte);
+			break;
 
-			switch(opcion)
-			{
-				case 1:
-					do
+			case 2:
+				do{
+					//en esta parte es la opcion del menu 2 donde se valida el ingreso de datos de los jugadores
+
+					//Ingreso del numero de camiseta con la funcion que valide el numero
+					utn_getNumeroInt(&numeroDeCamiseta, "\nIngrese su numero de camiseta: ", "Error, reingrese su numero de camiseta: \n", 1, 99, 4);
+					//Ingreso de la poscion de los jugadores contando por cada caso por si supera el numero permitido y validando su confederacion en una funcion
+					printf("\nIngrese su posicion:\n"
+							"1. Arquero.\n"
+							"2. Defensores.\n"
+							"3. Mediocampista.\n"
+							"4. Delantero\n");
+					utn_getNumeroInt(&posicionIngresada,"Ingrese aqui la opcion de menu:", "Error opcion no valida\n", 1, 4, 3);
+					switch(posicionIngresada)
 					{
-						printf("Elija el costo que desea ingresar:\n"
-								"1: Para costos de hospedaje.\n"
-								"2: Para costos de comida.\n"
-								"3: Para costos de transporte.\n"
-								"4: Para salir.\n");
-						printf("Ingrese aqui la opcion de menu: \n");
-						scanf("%d", &subMenu);
-						switch(subMenu)
+						case 1:
+							if(cantidadDeArquero < 2)
+							{
+								cantidadDeArquero++;
+								contadorDeJugador++;
+								IngresoDeConfedarcion(&contadorAFC, &contadorCAF, &contadorCONCACAF, &contadorCONMEBOL, &contadorUEFA, &contadorOFC);
+							}
+							else
+							{
+								printf("Numero de posiciones superada\n");
+							}
+							break;
+						case 2:
+							if(cantidadDeDefensor < 8)
+							{
+								cantidadDeDefensor++;
+								contadorDeJugador++;
+								IngresoDeConfedarcion(&contadorAFC, &contadorCAF, &contadorCONCACAF, &contadorCONMEBOL, &contadorUEFA, &contadorOFC);
+							}
+							else
+							{
+								printf("Numero de posiciones superada\n");
+							}
+							break;
+						case 3:
+							if(cantidadDeMediocampista < 8)
+							{
+								cantidadDeMediocampista++;
+								contadorDeJugador++;
+								IngresoDeConfedarcion(&contadorAFC, &contadorCAF, &contadorCONCACAF, &contadorCONMEBOL, &contadorUEFA, &contadorOFC);
+							}
+							else
+							{
+								printf("Numero de posiciones superada\n");
+							}
+							break;
+						case 4:
+							if(cantidadDeDelantero < 4)
+							{
+								cantidadDeDelantero++;
+								contadorDeJugador++;
+								IngresoDeConfedarcion(&contadorAFC, &contadorCAF, &contadorCONCACAF, &contadorCONMEBOL, &contadorUEFA, &contadorOFC);
+							}
+							else
+							{
+								printf("Numero de posiciones superada\n");
+							}
+							break;
+					}
+
+					printf("Desea continuar?(s/n):");
+					scanf("%c", &respuesta);
+
+				}while(respuesta != 'n');
+					break;
+
+				case 3:
+					//validando de en el case 2 y 1 halla datos ingresados para realizar los calculos
+					if(costoComida != 0 && costoHospedaje != 0 && costoTranporte != 0 && contadorDeJugador != 0)
+					{
+						promedioAFC = Promedio(contadorAFC, contadorDeJugador);
+						promedioCAF = Promedio(contadorCAF, contadorDeJugador);
+						promedioCONCACAF = Promedio(contadorCONCACAF, contadorDeJugador);
+						promedioCONMEBOL = Promedio(contadorCONMEBOL, contadorDeJugador);
+						promedioOFC = Promedio(contadorOFC, contadorDeJugador);
+						promedioUEFA = Promedio(contadorUEFA, contadorDeJugador);
+
+						costoTotalDeMantenimiento = costoComida + costoTranporte + costoHospedaje;
+
+						estadoMenuCalculos = 1;
+
+						porcentajeUEFA = contadorUEFA * 100 / contadorDeJugador;
+
+						printf("Se hicieron correctamente los calculos\n");
+					}
+					else
+					{
+						printf("No se hicieron correctamente los calculos\n");
+					}
+					break;
+				case 4:
+					//validacion que los datos y los calculos para mostras las operaciones realizadas
+					if(estadoMenuCalculos == 1)
+					{
+						printf("Promedio AFC: %.2f\n"
+								"Promedio CAF: %.2f\n"
+								"Promedio CONCACAF: %.2f\n"
+								"Promedio CONMEBOL: %.2f\n"
+								"Promedio OFC: %.2f\n"
+								"Promedio UEFA: %.2f\n",promedioAFC,promedioCAF,promedioCONCACAF,promedioCONMEBOL,promedioOFC,promedioUEFA);
+						//en caso de que la UEFA tenga mayoria de jugadores se hace un aumeto del %35
+						if(porcentajeUEFA > 50)
 						{
-							case 1:
-								printf("Ingrese los costos de hospedaje: ");
-								scanf("%f", &costosHospedaje);
-								break;
-							case 2:
-								printf("Ingrese los costos de comida: ");
-								scanf("%f", &costosComida);
-								break;
-							case 3:
-								printf("Ingrese los costos de transporte: ");
-								scanf("%f", &costosTranporte);
-								break;
-							case 4:
-								//estadoSubmenu = 1;
-								break;
+							aumentoParaUEFA = costoTotalDeMantenimiento * 0.35;
+							costoDeMantenimientoConAumento = costoTotalDeMantenimiento + aumentoParaUEFA;
+							printf("El costo era de  %.2f y recibio un aumento de %.2f\n, el valor del monto ahora es %.2f",costoTotalDeMantenimiento, aumentoParaUEFA, costoDeMantenimientoConAumento);
 						}
-					}while(subMenu != 4);
-
-				break;
-
-				case 2:
-					do{
-
-						contadorDeJugadores++;
-						printf("Ingrese los datos de los jugadores\n"
-								"1: Numero de camiseta.\n"
-								"2: Posicion de jugador.\n"
-								"3: Conferacion a la que pertenece.\n"
-								"4: Salir.\n");
-						printf("Ingrese aqui la opcion de menu:\n");
-						scanf("%d", &subMenu);
-
-						switch (subMenu)
+						else
 						{
-							case 1:
-								printf("Ingrese su numero de camiseta: ");
-								scanf("%d", &numeroDeCamiseta);
-								while(numeroDeCamiseta < 1 || numeroDeCamiseta > 99)
-								{
-									printf("Error, reingrese su numero de camiseta: ");
-									scanf("%d", &numeroDeCamiseta);
-								}
-								break;
-							case 2:
-								printf("Ingrese su posicion:\n"
-									"1. Arquero.\n"
-									"2. Defensores.\n"
-									"3. Mediocampista.\n"
-									"4. Delantero\n"
-									"5. Salir\n");
-
-								printf("Ingrese su opcion: \n");
-								scanf("%d", &posicionIngresada);
-								switch(posicionIngresada)
-								{
-									case 1:
-										if(cantidadDeArqueros > 2)
-										{
-											cantidadDeArqueros++;
-										}
-										else
-										{
-											printf("Numero de posiciones superada");
-										}
-										break;
-									case 2:
-										if(cantidadDeDefensores > 8)
-										{
-											cantidadDeDefensores++;
-										}
-										else
-										{
-											printf("Numero de posiciones superada");
-										}
-										break;
-									case 3:
-										if(cantidadDeMediocampistas > 8)
-										{
-											cantidadDeMediocampistas++;
-										}
-										else
-										{
-											printf("Numero de posiciones superada");
-										}
-										break;
-									case 4:
-										if(cantidadDeDelanteros > 4)
-										{
-											cantidadDeDelanteros++;
-										}
-										else
-										{
-											printf("Numero de posiciones superada");
-										}
-										break;
-									case 5:
-										break;
-								}
-									break;
-								case 3:
-									printf("Ingrese a que conferacion pertenece:\n"
-											"1. AFC.\n"
-											"2. CAF.\n"
-											"3. CONCACAF.\n"
-											"4. CONMEBOL.\n"
-											"5. UEFA.\n"
-											"6. OFC.\n"
-											"7. Salir");
-									printf("Ingrese su opcion: \n");
-									scanf("%d", &confederacionIngresada);
-
-									switch(confederacionIngresada)
-									{
-										case 1:
-											contadorAFC++;
-											break;
-										case 2:
-											contadorCAF++;
-											break;
-										case 3:
-											contadorCONCACAF++;
-											break;
-										case 4:
-											contadorCONMEBOL++;
-											break;
-										case 5:
-											contadorUEFA++;
-											break;
-										case 6:
-											contadorOFC++;
-											break;
-										default:
-											break;
-									}
-										break;
-									case 4:
-										break;
+							printf("El costo total de mantenimiento total es: %.2f\n", costoTotalDeMantenimiento);
 						}
 
+						printf("\nDesea volver al menu principal?(s/n): \n");
+						scanf("%c",&respuesta);
 
-						}while(subMenu != 4);
-						break;
-					case 3:
+						if(respuesta == 's')
+						{
+							break;
+						}
+					}
+					else
+					{
+						printf("No se realizo ningun calculo\n");
+					}
+					break;
+		}
+	}while(opcion != 5);
 
-						break;
-					case 4:
-						break;
-
-
-			}
-					//estado = 1;
-			//}
-		}while(opcion != 5);
+	printf("Acaba de salir del menu");
 
 }
