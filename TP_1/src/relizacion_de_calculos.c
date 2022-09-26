@@ -25,6 +25,16 @@ float Promedio(int confedaricion, int cantidadJugador)
 	return promedio;
 }
 
+/**
+ * \fn float AumentoParaCostoFinal(float*, float)
+ * \brief esta fundion se utiliza para realizar el aumento en caso de que la cantidad de jugadores
+ * que pertenecen a la UEFA sea mayor en comparacion que las otras confederaciones
+ *
+ * \param aumento varalible donde se realiza el aumento a aplicar
+ * \param costoMantenimineto los costos totales de mantenimiento
+ * \return devuelve el valor final de los costos de mantenimiento con el aumento agregado
+ */
+
 float AumentoParaCostoFinal(float* aumento, float costoMantenimineto)
 {
 	float costoConAumento;
