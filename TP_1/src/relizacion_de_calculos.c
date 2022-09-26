@@ -25,3 +25,16 @@ float Promedio(int confedaricion, int cantidadJugador)
 	return promedio;
 }
 
+float AumentoParaCostoFinal(float* aumento, float costoMantenimineto)
+{
+	float costoConAumento;
+
+	costoConAumento = 0;
+
+	*aumento = costoMantenimineto * 0.35;
+
+	costoConAumento = *aumento + costoMantenimineto;
+
+	return costoConAumento;
+}
+

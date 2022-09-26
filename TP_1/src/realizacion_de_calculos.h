@@ -9,5 +9,6 @@
 #define REALIZACION_DE_CALCULOS_H_
 
 float Promedio(int confedaricion, int jugador);
+float AumentoParaCostoFinal(float* aumento, float costoMantenimineto);
 
 #endif /* REALIZACION_DE_CALCULOS_H_ */

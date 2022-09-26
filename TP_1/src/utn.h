@@ -11,6 +11,6 @@
 
 int utn_getNumeroInt(int*pResultado, char*pMensaje, char*pMensajeError, int minimo, int maximo, int reintentos);
 int utn_getNumeroFloat(float*pResultado, char*pMensaje, char*pMensajeError, float minimo, float maximo, int reintentos);
-int utn_getCarater(char*pResultado, char*pMensaje, char*pMensajeError, char minimo, char maximo, int reintentos);
+
 
 #endif /* UTN_H_ */

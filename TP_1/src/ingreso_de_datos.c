@@ -34,17 +34,17 @@ void IngresoDeCostos(float* valorIngresadoHospedaje, float* valorIngresadoComida
 		{
 			case 1:
 
-				utn_getNumeroFloat(valorIngresadoHospedaje, "Ingrese los costos de hospedaje: ", "Error monto no valido", 1, 1000000000, 4);
+				utn_getNumeroFloat(valorIngresadoHospedaje, "\nIngrese los costos de hospedaje: ", "\nError monto no valido\n", 1, 1000000000, 4);
 
 				break;
 			case 2:
 
-				utn_getNumeroFloat(valorIngresadoComida, "Ingrese los costos de comida: ", "Error monto no valido", 1, 1000000000, 4);
+				utn_getNumeroFloat(valorIngresadoComida, "\nIngrese los costos de comida: ", "\nError monto no valido\n", 1, 1000000000, 4);
 
 				break;
 			case 3:
 
-				utn_getNumeroFloat(valorIngresadoTransporte, "Ingrese los costos de transporte: ", "Error monto no valido", 1, 1000000000, 4);
+				utn_getNumeroFloat(valorIngresadoTransporte, "\nIngrese los costos de transporte: ", "\nError monto no valido\n", 1, 1000000000, 4);
 
 				break;
 			case 4:
@@ -53,72 +53,6 @@ void IngresoDeCostos(float* valorIngresadoHospedaje, float* valorIngresadoComida
 	}while(opcion != 4);
 }
 
-/**
- * \fn void IngresoDePosicionDeJugador(int*, int*, int*, int*, int*)
- * \brief el fin de esta funcion es el de obtener la posicion el la que el jugador esta en el campo de futbol
- *
- * \param arquero cuenta la cantidad de arqueros que ingresan al equipo
- * \param defensor cuenta la cantidad de defesores que ingresan al equipo
- * \param mediocampista cuenta la cantidad de mediocampista que ingresan al equipo
- * \param delantero cuenta la cantidad de delateros que ingresan al equipo
- */
-void IngresoDePosicionDeJugador(int* arquero, int* defensor, int* mediocampista, int* delantero)
-{
-	int posicion;
-
-	printf("\nIngrese su posicion:\n"
-		"1. Arquero.\n"
-		"2. Defensores.\n"
-		"3. Mediocampista.\n"
-		"4. Delantero\n");
-
-	utn_getNumeroInt(&posicion,"\nIngrese aqui la opcion de menu: ", "Error opcion no valida\n", 1, 4, 3);
-
-	switch(posicion)
-	{
-		case 1:
-			if(*arquero > 2)
-			{
-				arquero++;
-				//IngresoDeConfedarcion(*AFC, *CAF, *CONCACAF, *CONMEBOL, *UEFA, *OFC);
-			}
-			else
-			{
-				printf("Numero de posiciones superada\n");
-			}
-			break;
-		case 2:
-			if(*defensor < 8)
-			{
-				defensor++;
-			}
-			else
-			{
-				printf("Numero de posiciones superada\n");
-			}
-			break;
-		case 3:
-			if(*mediocampista < 8)
-			{
-				mediocampista++;
-			}
-			else
-			{
-				printf("Numero de posiciones superada\n");
-			}
-			break;
-		case 4:
-			if(*delantero < 4)
-			{
-				delantero++;
-			}
-			else
-			{
-				printf("Numero de posiciones superada\n");
-			}
-			break;
-	}
-}
 
 /**
  * \fn void IngresoDeConfedarcion(int*, int*, int*, int*, int*, int*, int*)

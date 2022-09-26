@@ -116,14 +116,14 @@ int main(void)
 					//en esta parte es la opcion del menu 2 donde se valida el ingreso de datos de los jugadores
 
 					//Ingreso del numero de camiseta con la funcion que valide el numero
-					utn_getNumeroInt(&numeroDeCamiseta, "\nIngrese su numero de camiseta: ", "Error, reingrese su numero de camiseta: \n", 1, 99, 4);
+					utn_getNumeroInt(&numeroDeCamiseta, "\nIngrese su numero de camiseta: ", "\nError, reingrese su numero de camiseta: \n", 1, 99, 4);
 					//Ingreso de la poscion de los jugadores contando por cada caso por si supera el numero permitido y validando su confederacion en una funcion
 					printf("\nIngrese su posicion:\n"
 							"1. Arquero.\n"
 							"2. Defensores.\n"
 							"3. Mediocampista.\n"
 							"4. Delantero\n");
-					utn_getNumeroInt(&posicionIngresada,"Ingrese aqui la opcion de menu:", "Error opcion no valida\n", 1, 4, 3);
+					utn_getNumeroInt(&posicionIngresada,"\nIngrese aqui la opcion de menu:", "\nError opcion no valida\n", 1, 4, 3);
 					switch(posicionIngresada)
 					{
 						case 1:
@@ -135,7 +135,7 @@ int main(void)
 							}
 							else
 							{
-								printf("Numero de posiciones superada\n");
+								printf("\nNumero de posiciones superada\n");
 							}
 							break;
 						case 2:
@@ -147,7 +147,7 @@ int main(void)
 							}
 							else
 							{
-								printf("Numero de posiciones superada\n");
+								printf("\nNumero de posiciones superada\n");
 							}
 							break;
 						case 3:
@@ -159,7 +159,7 @@ int main(void)
 							}
 							else
 							{
-								printf("Numero de posiciones superada\n");
+								printf("\nNumero de posiciones superada\n");
 							}
 							break;
 						case 4:
@@ -171,12 +171,12 @@ int main(void)
 							}
 							else
 							{
-								printf("Numero de posiciones superada\n");
+								printf("\nNumero de posiciones superada\n");
 							}
 							break;
 					}
 
-					printf("Desea continuar?(s/n):");
+					printf("\nDesea continuar?(s/n):");
 					scanf("%c", &respuesta);
 
 				}while(respuesta != 'n');
@@ -199,11 +199,11 @@ int main(void)
 
 						porcentajeUEFA = contadorUEFA * 100 / contadorDeJugador;
 
-						printf("Se hicieron correctamente los calculos\n");
+						printf("\nSe hicieron correctamente los calculos\n");
 					}
 					else
 					{
-						printf("No se hicieron correctamente los calculos\n");
+						printf("\nNo se hicieron correctamente los calculos\n");
 					}
 					break;
 				case 4:
@@ -219,13 +219,12 @@ int main(void)
 						//en caso de que la UEFA tenga mayoria de jugadores se hace un aumeto del %35
 						if(porcentajeUEFA > 50)
 						{
-							aumentoParaUEFA = costoTotalDeMantenimiento * 0.35;
-							costoDeMantenimientoConAumento = costoTotalDeMantenimiento + aumentoParaUEFA;
-							printf("El costo era de  %.2f y recibio un aumento de %.2f\n, el valor del monto ahora es %.2f",costoTotalDeMantenimiento, aumentoParaUEFA, costoDeMantenimientoConAumento);
+							costoDeMantenimientoConAumento = AumentoParaCostoFinal(&aumentoParaUEFA, costoTotalDeMantenimiento);
+							printf("\nEl costo era de %.2f y recibio un aumento de %.2f\n, el valor del monto ahora es %.2f\n",costoTotalDeMantenimiento, aumentoParaUEFA, costoDeMantenimientoConAumento);
 						}
 						else
 						{
-							printf("El costo total de mantenimiento total es: %.2f\n", costoTotalDeMantenimiento);
+							printf("\nEl costo total de mantenimiento total es: %.2f\n\n", costoTotalDeMantenimiento);
 						}
 
 						printf("\nDesea volver al menu principal?(s/n): \n");
@@ -238,7 +237,7 @@ int main(void)
 					}
 					else
 					{
-						printf("No se realizo ningun calculo\n");
+						printf("\nNo se realizo ningun calculo\n");
 					}
 					break;
 		}

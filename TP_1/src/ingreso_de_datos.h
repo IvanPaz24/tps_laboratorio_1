@@ -10,7 +10,6 @@
 #include "utn.h"
 
 void IngresoDeCostos(float* valorIngresadoHospedaje, float* valorIngresadoComida, float* valorIngresadoTransporte);
-void IngresoDePosicionDeJugador(int* arqueros, int* defensores, int* mediocampistas, int* delanteros);
 void IngresoDeConfedarcion(int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC);
 
 
