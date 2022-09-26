@@ -1,4 +1,5 @@
 /*
+ * Ivan Ramiro Paz Agüero 1k
  Debemos conformar un equipo para competir en el próximo mundial.
 La formación del equipo titular será 1-4-4-2 (arquero, defensores, mediocampistas y
 delanteros).
