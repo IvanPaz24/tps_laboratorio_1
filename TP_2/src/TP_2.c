@@ -6,7 +6,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "datos_de_jugador.h"
+#include "datos_de_confederaciones.h"
 #include "utn.h"
+#include "salida_de_datos.h"
 
 int main(void) {
 
@@ -19,14 +21,20 @@ int main(void) {
 									{5, "CONCAF", "NORTE Y CENTRO AMERICA", 1961},
 									{6, "OFC", "OCEANIA", 1966}};
 
-	eJugador jugador[3000];
+	eJugador jugador[SIZEJUGADOR];
 
 	int respuesta;
 	int idAutoincremental;
+	char opcionSalir[10];
+	//float acumulador;
+	int contadorDeJugador;
 
 	idAutoincremental = 0;
 
-	InicializarEstado(jugador, 3000);
+	contadorDeJugador = 0;
+
+	InicializarEstadoJugador(jugador, SIZEJUGADOR);
+
 	do{
 		printf("\tMenu principal.\n"
 				"1: Para dar de alta al jugador.\n"
@@ -39,34 +47,84 @@ int main(void) {
 			switch (respuesta)
 			{
 				case 1:
-					if((AltaDeJugador(jugador, 3000, confederacion, idAutoincremental)) == 1)
+					//alta
+					if(AltaDeJugador(jugador, SIZEJUGADOR, confederacion, SIZECONFEDERACION, idAutoincremental) == 1)
 					{
 						idAutoincremental++;
-						printf("Se cargo correctamente los datos del jugador");
+						printf("\nSe cargo correctamente los datos del jugador.\n");
+						contadorDeJugador++;
+					}
+					else
+					{
+						printf("\nError no se cargo correctamente los datos.\n");
 					}
 					break;
 				case 2:
 					//baja
-					if(BajaDeJugador(jugador, 3000)== 1)
+					if(ValidacionExitenciaJugadores(jugador, SIZEJUGADOR)== 1)
 					{
-						printf("Se dio de baja al jugador correctamente");
+						if(BajaDeJugador(jugador, SIZEJUGADOR)== 1)
+						{
+							printf("\nSe dio de baja al jugador correctamente.\n");
+							contadorDeJugador--;
+						}
+						else
+						{
+							printf("\nError no se dio de baja correctamente.\n");
+						}
 					}
 					else
 					{
-						printf("Error no se dio de baja correctamente");
+						printf("\nNo se cargo ningun jugador.\n");
 					}
 					break;
 				case 3:
 					//modificacion
+
+					if(ValidacionExitenciaJugadores(jugador, SIZEJUGADOR)== 1)
+					{
+						if(ModificacionDeJugador(jugador, SIZEJUGADOR,confederacion, SIZECONFEDERACION, idAutoincremental)==1)
+						{
+							printf("\nSe modifico correctamente los datos del jugador.\n");
+						}
+						else
+						{
+							printf("\nError no se dio de baja correctamente.\n");
+						}
+					}
+					else
+					{
+						printf("\nNo se cargo ningun jugador.\n");
+					}
 					break;
 				case 4:
 					//informes
+					if(ValidacionExitenciaJugadores(jugador, SIZEJUGADOR)== 1)
+					{
+						MenuInformes(jugador, SIZEJUGADOR, confederacion, SIZECONFEDERACION, contadorDeJugador);
+					}
+					else
+					{
+						printf("\nNo se cargo ningun jugador.\n");
+					}
 					break;
+				case 5:
+					//salida del programa
+					if(utn_getDescripcion(opcionSalir, 10,"\nDesea salir(s/n): ", "\Error\n", 3) == 0)
+					{
+						switch (opcionSalir[10])
+						{
+							case 'n':
+								printf("Volvio al menu principal.");
+								break;
+
+						}
+					}
 			}
 		}
 
 
 	}while(respuesta != 5);
 
-	printf("Fin del programa");
+	printf("Fin del programa.");
 }
