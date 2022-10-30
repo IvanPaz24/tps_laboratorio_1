@@ -42,6 +42,15 @@ int BuscarLibreConfederacion(eConfederacion arrayConfederacion[],int TAM)
 	return indice;
 }
 
+/**
+ * \fn int BuscarPorIDConfederacion(eConfederacion[], int, int)
+ * \brief busca el id de la confederacion
+ *
+ * \param arrayConfederacion pertenece a eConfederacion y guarda sus datos
+ * \param TAM tamaño del array eConfederacion
+ * \param idIngresado id autoincremental que almacena cada dato de cada confederacion
+ * \return
+ */
 int BuscarPorIDConfederacion(eConfederacion arrayConfederacion[], int TAM, int idIngresado)
 {
 	int retorno = -1;
